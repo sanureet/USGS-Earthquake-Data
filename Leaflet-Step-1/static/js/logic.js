@@ -71,6 +71,18 @@ var overlayMaps = {
   L.control.layers(baseMaps, overlayMaps, {
     collapsed: false
   }).addTo(myMap);
+
+  // var info = L.control({
+  //   position: "topright"
+  // });
+
+  // When the layer control is added, insert a div with the class of "legend"
+// info.onAdd = function() {
+//   var div = L.DomUtil.create("div", "legend");
+//   return div;
+// };
+// // Add the info legend to the map
+// info.addTo(myMap);
 }
   // Create a new marker
 // L.marker([37.09, -95.71]).addTo(myMap);
