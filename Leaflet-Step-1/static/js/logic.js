@@ -1,6 +1,7 @@
 // Earthquake data link
 var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 
+// var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_week.geojson";
 // Perform a GET request to the query URL
 d3.json(url).then(function(data) {
     // Once we get a response, send the data.features object to the createFeatures function
@@ -22,10 +23,11 @@ d3.json(url).then(function(data) {
     onEachFeature: onEachFeature
   });
 
+  
   // Sending our earthquakes layer to the createMap function
   createMap(earthquakes);
 }
-
+var tectonicplates = new L.LayerGroup();
 function createMap(earthquakes) {
 
 // Define streetmap and darkmap layers
@@ -44,24 +46,33 @@ var darkmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z
   id: "dark-v10",
   accessToken: API_KEY
 });
+// add layer
+var satellite = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+  attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+  tileSize: 512,
+  maxZoom: 18,
+  zoomOffset: -1,
+  id: "mapbox/satellite-v9",
+  accessToken: API_KEY
+});
 
 // Create a baseMaps object
 var baseMaps = {
     "Street Map": streetmap,
-    "Dark Map": darkmap
+    "Dark Map": darkmap,
+    "Satellite Map": satellite
   };
 
 // Create overlay object to hold our overlay layer
 var overlayMaps = {
+    "Tectonic Plates": tectonicplates,
     Earthquakes: earthquakes
   };
 
   // Create our map, giving it the streetmap and earthquakes layers to display on load
   var myMap = L.map("map", {
-    center: [
-      37.09, -95.71
-    ],
-    zoom: 5,
+      center: [15.5994, -28.6731],
+    zoom: 3,
     layers: [streetmap, earthquakes]
   });
 
@@ -97,12 +108,12 @@ var overlayMaps = {
 //   color: "green",
 //   fillColor: "green",
 //   fillOpacity: 0.75,
-//   radius: 500
+//   radius: 50000
 // }).addTo(myMap);
 
 
 
-// Loop through the cities array and create one marker for each city object
+// // Loop through the cities array and create one marker for each city object
 // for (var i = 0; i < cities.length; i++) {
 //     L.circleMarker(cities[i].location, {
 //       fillOpacity: 0.75,
@@ -118,3 +129,10 @@ var overlayMaps = {
 
 // L.control.layers(baseMaps, overlayMaps).addTo(myMap);
 
+
+d3.json("https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json").then(function(plateData){
+  L.geoJSON(plateData,
+    {color: "blue",
+    weight: 3})
+    .addTo(tectonicplates);
+});
