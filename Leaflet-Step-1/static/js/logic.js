@@ -17,6 +17,34 @@ d3.json(url).then(function(data) {
       "</h3><hr><p>" + new Date(feature.properties.time) + "</p>");
   }
 
+  // Size the circle by magnitude
+  function circlesize(magnitude) {
+    return magnitude * 2000
+  }
+
+  // color the circle by depth
+  function circlecolor(magnitude){
+    if (magnitude <1) {
+      return "#ccff33"
+    }
+    else if (magnitude <2) {
+      return "#ffff33"
+    }
+    else if (magnitude <3) {
+      return "#ffcc33"
+    }
+    else if (magnitude <4) {
+      return "#ff9933"
+    }
+    else if (magnitude <5) {
+      return "#ff6633"
+    }
+    else {
+      return "#ff3333"
+    }
+  }
+
+
   // Create a GeoJSON layer containing the features array on the earthquakeData object
   // Run the onEachFeature function once for each piece of data in the array
   var earthquakes = L.geoJSON(earthquakeData, {
@@ -83,47 +111,59 @@ var overlayMaps = {
     collapsed: false
   }).addTo(myMap);
 
-  // var info = L.control({
-  //   position: "topright"
-  // });
 
-  // When the layer control is added, insert a div with the class of "legend"
-// info.onAdd = function() {
-//   var div = L.DomUtil.create("div", "legend");
-//   return div;
-// };
-// // Add the info legend to the map
-// info.addTo(myMap);
+  L.circleMarker([latitude, longitude], {
+    fillOpacity: 0.75,
+    color: "blue",
+    fillColor: circlecolor(magnitude),
+    weight: 1,
+    // Setting our circle's radius equal to the output of our markerSize function
+    // This will make our marker's size proportionate to its population
+    radius: circlesize(magnitude)
+  }).bindPopup("<h1>" + location + "</h1> <hr> <h3>time: " + magnitude+ "</h3>").addTo(myMap);
 }
-  // Create a new marker
-// L.marker([37.09, -95.71]).addTo(myMap);
-// L.control.layers(streetmap, darkmap).addTo(myMap);
+
+
+  // color function to be used when creating legend
+  // function getcolor(d) {
+  //   return d >5 ? "#ff3333":
+  //         d >4 ? "#ff6633":
+  //         d >3 ? "#ff9933":
+  //         d >2 ? "#ffcc33":
+  //         d >1 ? "#ffff33":
+  //                "#ccff33";
+  // }
+
+  
+// Add legend (don't forget to add the CSS from index.html)
+// Link source https://github.com/timwis/leaflet-choropleth/blob/gh-pages/examples/legend/demo.js
+var legend = L.control({ position: 'bottomright' })
+
+  legend.onAdd = function (Map) {
+
+  var div = L.DomUtil.create('div', 'info legend');
+  var magnitudes = [0, 1, 2, 3, 4, 5];
+  var labels = [];
+
+  // for (var i = 0; i <magnitudes.length; i++){}
+
+  // // Add min & max
+  // div.innerHTML = '<div class="labels"><div class="min">' + limits[0] + '</div> \
+  //   <div class="max">' + limits[limits.length - 1] + '</div></div>'
+
+  // limits.forEach(function (limit, index) {
+  //   labels.push('<li style="background-color: ' + colors[index] + '"></li>')
+  // })
+
+  // div.innerHTML += '<ul>' + labels.join('') + '</ul>'
+  return div
+  };
+  legend.addTo(myMap);
 
 
 
 
 
-// // Create a circle and pass in some initial options
-// L.circle([37.09, -95.71], {
-//   color: "green",
-//   fillColor: "green",
-//   fillOpacity: 0.75,
-//   radius: 50000
-// }).addTo(myMap);
-
-
-
-// // Loop through the cities array and create one marker for each city object
-// for (var i = 0; i < cities.length; i++) {
-//     L.circleMarker(cities[i].location, {
-//       fillOpacity: 0.75,
-//       color: "white",
-//       fillColor: "purple",
-//       // Setting our circle's radius equal to the output of our markerSize function
-//       // This will make our marker's size proportionate to its population
-//       radius: markerSize(cities[i].population)
-//     }).bindPopup("<h1>" + cities[i].name + "</h1> <hr> <h3>Population: " + cities[i].population + "</h3>").addTo(myMap);
-//   }
 
 
 
