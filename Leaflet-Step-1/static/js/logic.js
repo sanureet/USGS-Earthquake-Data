@@ -69,7 +69,7 @@ var tectonicplates = new L.LayerGroup();
 
 function createMap(earthquakes) {
 
-  // Define streetmap and darkmap layers
+  // Define streetmap and darkmap and satellite layers to map
   var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
     attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
     tileSize: 512,
@@ -125,16 +125,6 @@ function createMap(earthquakes) {
   
 }
   
-  // color function to be used when creating legend
-  // function getcolor(d) {
-  //   return d >5 ? "#ff3333":
-  //         d >4 ? "#ff6633":
-  //         d >3 ? "#ff9933":
-  //         d >2 ? "#ffcc33":
-  //         d >1 ? "#ffff33":
-  //                "#ccff33";
-  // }
-
 
   // Add legend (don't forget to add the CSS from index.html)
   // Link source https://github.com/timwis/leaflet-choropleth/blob/gh-pages/examples/legend/demo.js
