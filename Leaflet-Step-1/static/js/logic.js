@@ -124,18 +124,7 @@ function createMap(earthquakes) {
 
   
 }
-  //   L.circleMarker (latlng), {
-  //     fillOpacity: 0.75,
-  //     color: "blue",
-  //     fillColor: circlecolor(magnitude),
-  //     weight: 1,
-  //     // Setting our circle's radius equal to the output of our markerSize function
-  //     // This will make our marker's size proportionate to its population
-  //     radius: circlesize(magnitude)
-  //   }).bindPopup("<h1>" + location + "</h1> <hr> <h3>time: " + magnitude + "</h3>").addTo(myMap);
-  // }
-
-
+  
   // color function to be used when creating legend
   // function getcolor(d) {
   //   return d >5 ? "#ff3333":
