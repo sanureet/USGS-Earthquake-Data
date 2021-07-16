@@ -172,4 +172,5 @@ function createMap(earthquakes) {
       })
       .addTo(tectonicplates);
   });
-// finished work
+// finished leaflet homework
+
