@@ -164,13 +164,6 @@ function createMap(earthquakes) {
 
 
 
-
-
-
-
-  // L.control.layers(baseMaps, overlayMaps).addTo(myMap);
-
-
   d3.json("https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json").then(function (plateData) {
     L.geoJSON(plateData,
       {
