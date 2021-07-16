@@ -1,4 +1,4 @@
-// Earthquake data link
+// Earthquake data link url
 var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 
 // var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_week.geojson";
@@ -124,8 +124,6 @@ function createMap(earthquakes) {
 
   
 }
-  
-
   // Add legend (don't forget to add the CSS from index.html)
   // Link source https://github.com/timwis/leaflet-choropleth/blob/gh-pages/examples/legend/demo.js
   // var legend = L.control({ position: 'bottomright' })
